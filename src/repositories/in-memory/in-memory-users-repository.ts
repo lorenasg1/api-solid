@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { CreateUserDto, User, UsersRepository } from "../users-repository";
 
 export class InMemoryUsersRepository implements UsersRepository {
@@ -5,7 +6,7 @@ export class InMemoryUsersRepository implements UsersRepository {
   
   async create(data: CreateUserDto): Promise<User> {
     const user = {
-      id: 'user-test',
+      id: randomUUID(),
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,

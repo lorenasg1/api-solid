@@ -1,10 +1,11 @@
 import { InvalidCredentialsError } from '@/errors/invalid-credentials-error';
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
+import { UsersRepository } from '@/repositories/users-repository';
 import { hash } from 'bcryptjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { AuthenticateUseCase } from './authenticate';
 
-let usersRepository: InMemoryUsersRepository
+let usersRepository: UsersRepository
 let sut: AuthenticateUseCase
 
 describe('Authenticate Use Case', () => {

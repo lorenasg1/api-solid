@@ -1,10 +1,3 @@
-interface CheckIn {
-  id: string
-  created_at: Date
-  user_id: string
-  gym_id: string
-}
-
 export interface User {
   id: string
   name: string
