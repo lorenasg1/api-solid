@@ -14,4 +14,5 @@ export interface CreateCheckInDto {
 
 export interface CheckInsRepository {
   create(data: CreateCheckInDto): Promise<CheckIn>;
+  findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn | null>;
 }
