@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { CheckIn, CheckInsRepository, CreateCheckInDto } from "../check-ins-repository";
 
 export class InMemoryCheckInsRepository implements CheckInsRepository {
+  
   public checkIns: CheckIn[] = [];
 
   async create(data: CreateCheckInDto): Promise<CheckIn> {
@@ -11,11 +12,11 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
       user_id: data.user_id,
       gym_id: data.gym_id,
       created_at: new Date(),
-      validated_at: data.validated_at ? new Date(data.validated_at) : null
+      validated_at: data.validated_at ? new Date(data.validated_at) : null,
     }
 
     this.checkIns.push(checkIn)
-
+    
     return checkIn
   }
 
@@ -34,5 +35,11 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     if(!checkInSameDate) return null
 
     return checkInSameDate
+  }
+
+  async findManyByUserId(userId: string, page: number): Promise<CheckIn[]> {
+    return this.checkIns
+    .filter(checkIn => checkIn.user_id === userId)
+    .slice((page - 1) * 20, page * 20)
   }
 }
