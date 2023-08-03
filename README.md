@@ -6,19 +6,19 @@ GymPass/TotalPass style app.
 
 - [x] Deve ser possível cadastrar usuários;
 - [x] Deve ser possível autenticar usuários;
-- [ ] Deve ser possível obter o perfil de um usuário logado;
+- [x] Deve ser possível obter o perfil de um usuário logado;
 - [ ] Deve ser possível obter o número de check-ins realizados pelo usuário logado;
 - [ ] Deve ser possível que o usuário visualize o seu histórico de check-ins;
 - [ ] Deve ser possível que o usuário busque academias próximas;
 - [ ] Deve ser possível que o usuário busque academias pelo nome;
-- [ ] Deve ser possível que o usuário realize check-in em uma academia;
+- [x] Deve ser possível que o usuário realize check-in em uma academia;
 - [ ] Deve ser possível validar o check-in de um usuário;
 
 ## Regras de Negócio
 
 - [x] O usuário não deve poder se cadastrar com um email que já existe;
 - [x] O usuário não pode fazer 2 check-ins no mesmo dia
-- [ ] O usuário não pode fazer check-in se não estiver perto (100m) da academia;
+- [x] O usuário não pode fazer check-in se não estiver perto (100m) da academia;
 - [ ] o check-in só pode ser validado até 20 minutos após criado;
 - [ ] O check-in só pode ser validado por administradores;
 - [ ] A academia só pode ser cadastrada por administradores;
