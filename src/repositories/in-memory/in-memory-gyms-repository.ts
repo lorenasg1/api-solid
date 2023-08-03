@@ -7,13 +7,13 @@ export class InMemoryGymsRepository implements GymsRepository {
 
   async create(data: CreateGymDto): Promise<Gym> {
     const gym = {
-      id: randomUUID(),
+      id: data.id ?? randomUUID(),
       name: data.name,
-      description: data.description,
-      phone: data.phone,
-      latitude: new Decimal(data.latitude),
-      longitude: new Decimal(data.longitude),
-      checkIns: data.checkIns,
+      description: data.description ?? null,
+      phone: data.phone ?? null,
+      latitude: new Decimal(data.latitude.toString()),
+      longitude: new Decimal(data.longitude.toString()),
+      created_at: new Date()
     }
 
     this.gyms.push(gym)

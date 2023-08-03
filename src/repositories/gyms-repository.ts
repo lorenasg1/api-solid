@@ -4,20 +4,21 @@ import { CheckIn } from "./check-ins-repository"
 export interface Gym {
   id: string
   name: string
-  description: string
-  phone: string
+  description: string | null
+  phone: string | null
   latitude: Decimal
   longitude: Decimal
-  checkIns: CheckIn[]
+  checkIns?: CheckIn[]
+  created_at: Date
 }
 
 export interface CreateGymDto {
+  id?: string 
   name: string
-  description: string
-  phone: string
-  latitude: Decimal
-  longitude: Decimal
-  // checkIns: CheckIn[]
+  description: string | null
+  phone: string | null
+  latitude: number
+  longitude: number
 }
 
 export interface GymsRepository {
