@@ -17,7 +17,7 @@ export interface CreateGymDto {
   phone: string
   latitude: Decimal
   longitude: Decimal
-  checkIns: CheckIn[]
+  // checkIns: CheckIn[]
 }
 
 export interface GymsRepository {
