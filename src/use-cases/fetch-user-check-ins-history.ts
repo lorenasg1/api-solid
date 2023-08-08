@@ -1,4 +1,7 @@
-import { CheckIn, CheckInsRepository } from "@/repositories/check-ins-repository";
+import {
+  CheckIn,
+  CheckInsRepository,
+} from '@/repositories/check-ins-repository'
 
 interface FetchUserCheckInsHistoryUseCaseRequest {
   userId: string
@@ -6,19 +9,23 @@ interface FetchUserCheckInsHistoryUseCaseRequest {
 }
 
 interface FetchUserCheckInsHistoryUseCaseResponse {
-  checkIns: CheckIn[];
+  checkIns: CheckIn[]
 }
 
 export class FetchUserCheckInsHistoryUseCase {
-  constructor(
-    private checkInsRepository: CheckInsRepository, 
-    ) {}
+  constructor(private checkInsRepository: CheckInsRepository) {}
 
-  async execute({userId, page}: FetchUserCheckInsHistoryUseCaseRequest): Promise<FetchUserCheckInsHistoryUseCaseResponse> {
-    const checkIns = await this.checkInsRepository.findManyByUserId(userId, page)
+  async execute({
+    userId,
+    page,
+  }: FetchUserCheckInsHistoryUseCaseRequest): Promise<FetchUserCheckInsHistoryUseCaseResponse> {
+    const checkIns = await this.checkInsRepository.findManyByUserId(
+      userId,
+      page,
+    )
 
     return {
-      checkIns
+      checkIns,
     }
   }
 }

@@ -1,10 +1,13 @@
-import { randomUUID } from "crypto";
-import dayjs from "dayjs";
-import { CheckIn, CheckInsRepository, CreateCheckInDto } from "../check-ins-repository";
+import { randomUUID } from 'crypto'
+import dayjs from 'dayjs'
+import {
+  CheckIn,
+  CheckInsRepository,
+  CreateCheckInDto,
+} from '../check-ins-repository'
 
 export class InMemoryCheckInsRepository implements CheckInsRepository {
-  
-  public checkIns: CheckIn[] = [];
+  public checkIns: CheckIn[] = []
 
   async create(data: CreateCheckInDto): Promise<CheckIn> {
     const checkIn = {
@@ -16,34 +19,37 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     }
 
     this.checkIns.push(checkIn)
-    
+
     return checkIn
   }
 
-  async findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn | null> {
+  async findByUserIdOnDate(
+    userId: string,
+    date: Date,
+  ): Promise<CheckIn | null> {
     const startOfDay = dayjs(date).startOf('date')
     const endOfDay = dayjs(date).endOf('date')
 
-    const checkInSameDate = this.checkIns.find(checkIn => {
+    const checkInSameDate = this.checkIns.find((checkIn) => {
       const checkInDate = dayjs(checkIn.created_at)
-      const checkInIsSameDate = checkInDate.isAfter(startOfDay) && checkInDate.isBefore(endOfDay)
-
+      const checkInIsSameDate =
+        checkInDate.isAfter(startOfDay) && checkInDate.isBefore(endOfDay)
 
       return checkIn.user_id === userId && checkInIsSameDate
-    })    
-    
-    if(!checkInSameDate) return null
+    })
+
+    if (!checkInSameDate) return null
 
     return checkInSameDate
   }
 
   async findManyByUserId(userId: string, page: number): Promise<CheckIn[]> {
     return this.checkIns
-    .filter(checkIn => checkIn.user_id === userId)
-    .slice((page - 1) * 20, page * 20)
+      .filter((checkIn) => checkIn.user_id === userId)
+      .slice((page - 1) * 20, page * 20)
   }
 
   async countByUserId(userId: string): Promise<number> {
-    return this.checkIns.filter(checkIn => checkIn.user_id === userId).length
+    return this.checkIns.filter((checkIn) => checkIn.user_id === userId).length
   }
 }

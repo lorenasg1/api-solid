@@ -13,8 +13,8 @@ export interface CreateCheckInDto {
 }
 
 export interface CheckInsRepository {
-  create(data: CreateCheckInDto): Promise<CheckIn>;
-  findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn | null>;
-  findManyByUserId(userId: string, page: number): Promise<CheckIn[]>;
-  countByUserId(userId: string): Promise<number>;
+  create(data: CreateCheckInDto): Promise<CheckIn>
+  findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn | null>
+  findManyByUserId(userId: string, page: number): Promise<CheckIn[]>
+  countByUserId(userId: string): Promise<number>
 }

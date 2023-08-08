@@ -1,9 +1,12 @@
-import { MaxNumberOfCheckInsError } from "@/errors/max-check-ins-error";
-import { MaxDistanceError } from "@/errors/max-distance-error";
-import { ResourceNotFoundError } from "@/errors/resource-not-found";
-import { CheckIn, CheckInsRepository } from "@/repositories/check-ins-repository";
-import { GymsRepository } from "@/repositories/gyms-repository";
-import { getDistanceBetweenCoordinates } from "@/utils/get-distance-between-coordinates";
+import { MaxNumberOfCheckInsError } from '@/errors/max-check-ins-error'
+import { MaxDistanceError } from '@/errors/max-distance-error'
+import { ResourceNotFoundError } from '@/errors/resource-not-found'
+import {
+  CheckIn,
+  CheckInsRepository,
+} from '@/repositories/check-ins-repository'
+import { GymsRepository } from '@/repositories/gyms-repository'
+import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-coordinates'
 
 interface CheckInUseCaseRequest {
   userId: string
@@ -13,42 +16,53 @@ interface CheckInUseCaseRequest {
 }
 
 interface CheckInUseCaseResponse {
-  checkIn: CheckIn;
+  checkIn: CheckIn
 }
 
 export class CheckInUseCase {
   constructor(
-    private checkInsRepository: CheckInsRepository, 
-    private gymsRepository: GymsRepository
-    ) {}
+    private checkInsRepository: CheckInsRepository,
+    private gymsRepository: GymsRepository,
+  ) {}
 
-  async execute({userId, gymId, userLatitude, userLongitude}: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
+  async execute({
+    userId,
+    gymId,
+    userLatitude,
+    userLongitude,
+  }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
     const gym = await this.gymsRepository.findById(gymId)
 
-    if(!gym) throw new ResourceNotFoundError()
+    if (!gym) throw new ResourceNotFoundError()
 
     const distance = getDistanceBetweenCoordinates(
-      {latitude: userLatitude, longitude: userLongitude}, 
-      {latitude: gym.latitude.toNumber(), longitude: gym.longitude.toNumber()}
-      )
+      { latitude: userLatitude, longitude: userLongitude },
+      {
+        latitude: gym.latitude.toNumber(),
+        longitude: gym.longitude.toNumber(),
+      },
+    )
 
     const MAX_DISTANCE_IN_KM = 0.1
 
-    if(distance > MAX_DISTANCE_IN_KM) {
+    if (distance > MAX_DISTANCE_IN_KM) {
       throw new MaxDistanceError()
     }
-    
-    const hasCheckedIn = await this.checkInsRepository.findByUserIdOnDate(userId, new Date())
 
-    if(hasCheckedIn) throw new MaxNumberOfCheckInsError()
+    const hasCheckedIn = await this.checkInsRepository.findByUserIdOnDate(
+      userId,
+      new Date(),
+    )
+
+    if (hasCheckedIn) throw new MaxNumberOfCheckInsError()
 
     const checkIn = await this.checkInsRepository.create({
       user_id: userId,
-      gym_id: gymId
+      gym_id: gymId,
     })
 
     return {
-      checkIn
+      checkIn,
     }
   }
 }

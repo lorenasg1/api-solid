@@ -1,7 +1,7 @@
-import { CheckInsRepository } from '@/repositories/check-ins-repository';
-import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { GetUserMetricsUseCase } from './get-user-metrics';
+import { CheckInsRepository } from '@/repositories/check-ins-repository'
+import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { GetUserMetricsUseCase } from './get-user-metrics'
 
 let checkInsRepository: CheckInsRepository
 let sut: GetUserMetricsUseCase

@@ -1,4 +1,4 @@
-import { CheckIn } from "./check-ins-repository"
+import { CheckIn } from './check-ins-repository'
 
 export interface User {
   id: string

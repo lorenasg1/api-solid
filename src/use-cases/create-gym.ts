@@ -1,4 +1,4 @@
-import { Gym, GymsRepository } from "@/repositories/gyms-repository"
+import { Gym, GymsRepository } from '@/repositories/gyms-repository'
 
 interface GymUseCaseRequest {
   name: string
@@ -13,21 +13,25 @@ interface GymUseCaseResponse {
 }
 
 export class CreateGymUseCase {
-  constructor(
-    private gymsRepository: GymsRepository
-  ) {}
+  constructor(private gymsRepository: GymsRepository) {}
 
-  async execute({ name, description, phone, latitude, longitude }: GymUseCaseRequest): Promise<GymUseCaseResponse> {    
+  async execute({
+    name,
+    description,
+    phone,
+    latitude,
+    longitude,
+  }: GymUseCaseRequest): Promise<GymUseCaseResponse> {
     const gym = await this.gymsRepository.create({
-      name, 
-      description, 
-      phone, 
-      latitude: latitude, 
-      longitude: longitude
+      name,
+      description,
+      phone,
+      latitude,
+      longitude,
     })
 
     return {
-      gym
+      gym,
     }
   }
 }

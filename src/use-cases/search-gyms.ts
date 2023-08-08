@@ -1,4 +1,4 @@
-import { Gym, GymsRepository } from "@/repositories/gyms-repository"
+import { Gym, GymsRepository } from '@/repositories/gyms-repository'
 
 interface SearchGymUseCaseRequest {
   query: string
@@ -10,15 +10,16 @@ interface SearchGymUseCaseResponse {
 }
 
 export class SearchGymUseCase {
-  constructor(
-    private gymsRepository: GymsRepository
-  ) {}
+  constructor(private gymsRepository: GymsRepository) {}
 
-  async execute({ query, page }: SearchGymUseCaseRequest): Promise<SearchGymUseCaseResponse> {
+  async execute({
+    query,
+    page,
+  }: SearchGymUseCaseRequest): Promise<SearchGymUseCaseResponse> {
     const gyms = await this.gymsRepository.findMany(query, page)
 
     return {
-      gyms
+      gyms,
     }
   }
 }
