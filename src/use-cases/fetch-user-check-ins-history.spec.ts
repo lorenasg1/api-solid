@@ -23,12 +23,10 @@ describe('Fetch User Check-in History Use Case', () => {
       user_id: 'user-01',
     })
 
-    const { checkIns } = await sut.execute({ 
-      userId: 'user-01', 
+    const { checkIns } = await sut.execute({
+      userId: 'user-01',
       page: 1
     })
-
-    console.log(checkIns)
 
     expect(checkIns).toHaveLength(2)
     expect(checkIns).toEqual([

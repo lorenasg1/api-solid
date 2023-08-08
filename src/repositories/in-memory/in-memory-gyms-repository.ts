@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { CreateGymDto, Gym, GymsRepository } from "../gyms-repository";
 
 export class InMemoryGymsRepository implements GymsRepository {
+
   public gyms: Gym[] = [];
 
   async create(data: CreateGymDto): Promise<Gym> {
@@ -20,12 +21,16 @@ export class InMemoryGymsRepository implements GymsRepository {
 
     return gym
   }
-  
+
   async findById(id: string): Promise<Gym | null> {
     const gym = this.gyms.find(gym => gym.id === id);
 
     if(!gym) return null;
 
     return gym
+  }
+
+  async findMany(query: string, page: number): Promise<Gym[]> {
+    return this.gyms.filter(gym => gym.name.includes(query)).slice((page - 1 ) * 20, page * 20)
   }
 }

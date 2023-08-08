@@ -13,7 +13,7 @@ export interface Gym {
 }
 
 export interface CreateGymDto {
-  id?: string 
+  id?: string
   name: string
   description: string | null
   phone: string | null
@@ -24,4 +24,5 @@ export interface CreateGymDto {
 export interface GymsRepository {
   create(data: CreateGymDto): Promise<Gym>;
   findById(id: string): Promise<Gym | null>;
+  findMany(query: string, page: number): Promise<Gym[]>;
 }
