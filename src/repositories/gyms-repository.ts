@@ -1,5 +1,5 @@
-import { Decimal } from "@prisma/client/runtime/library"
-import { CheckIn } from "./check-ins-repository"
+import { Decimal } from '@prisma/client/runtime/library'
+import { CheckIn } from './check-ins-repository'
 
 export interface Gym {
   id: string
@@ -21,8 +21,14 @@ export interface CreateGymDto {
   longitude: number
 }
 
+export interface FindManyNearbyDto {
+  latitude: number
+  longitude: number
+}
+
 export interface GymsRepository {
-  create(data: CreateGymDto): Promise<Gym>;
-  findById(id: string): Promise<Gym | null>;
-  findMany(query: string, page: number): Promise<Gym[]>;
+  create(data: CreateGymDto): Promise<Gym>
+  findById(id: string): Promise<Gym | null>
+  findMany(query: string, page: number): Promise<Gym[]>
+  findManyNearby({ latitude, longitude }: FindManyNearbyDto): Promise<Gym[]>
 }
